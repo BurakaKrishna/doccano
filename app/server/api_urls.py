@@ -2,7 +2,9 @@ from django.urls import path
 from rest_framework.urlpatterns import format_suffix_patterns
 
 from .api import Me
+from .api import UserList
 from .api import ProjectList, ProjectDetail
+from .api import ProjectUserList, ProjectUserDetail
 from .api import LabelList, LabelDetail
 from .api import DocumentList, DocumentDetail
 from .api import AnnotationList, AnnotationDetail
@@ -12,6 +14,7 @@ from .api import StatisticsAPI
 
 urlpatterns = [
     path('me', Me.as_view(), name='me'),
+    path('users', UserList.as_view(), name='user_list'),
     path('projects', ProjectList.as_view(), name='project_list'),
     path('projects/<int:project_id>', ProjectDetail.as_view(), name='project_detail'),
     path('projects/<int:project_id>/statistics',
@@ -20,6 +23,10 @@ urlpatterns = [
          LabelList.as_view(), name='label_list'),
     path('projects/<int:project_id>/labels/<int:label_id>',
          LabelDetail.as_view(), name='label_detail'),
+    path('projects/<int:project_id>/users',
+         ProjectUserList.as_view(), name='project_user_list'),
+    path('projects/<int:project_id>/users/<int:user_id>',
+         ProjectUserDetail.as_view(), name='project_user_detail'),
     path('projects/<int:project_id>/docs',
          DocumentList.as_view(), name='doc_list'),
     path('projects/<int:project_id>/docs/<int:doc_id>',
